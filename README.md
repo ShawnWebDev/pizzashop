@@ -27,10 +27,6 @@ over specified periods.
 - Nginx
 - AWS
 
-### Live Site:
-
-http://ec2-13-219-160-162.compute-1.amazonaws.com/
-
 ### Install Guide:
 
 1. Install Java 21 and latest version of Docker and Docker Compose
