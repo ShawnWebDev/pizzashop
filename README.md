@@ -1,12 +1,23 @@
 
 # Pizza Shop
-
 ## A Menu Management, Inventory Tracking, and Point of Sale Application
+
 
 ### Description:
 
 Pizza Shop is a digital ordering system that enables customers, employees, and management to view, interact, and manage 
 inventory and orders in real time. 
+
+
+### Key Challenges:
+
+
+
+### Architecture & System Design:
+
+- Real-Time Updates: Server-Sent Events (SSE) provides employees with a reactive dashboard, reducing API polling and improving server performance.
+- Containerization: A multi-container environment using Docker Compose, separating the persistence layer (MySQL) from the application logic for better scalability.
+
 
 ### Role-based access:
 
@@ -29,11 +40,6 @@ over specified periods.
 
 ### Install Guide:
 
-1. Install Java 21 and latest version of Docker and Docker Compose
-2. Clone this repo
-3. Build .jar and tag application as pizzashop docker image using provided Dockerfile
-4. run Docker Compose with (docker-compose up) from root directory (-d flag will detach application logs from terminal)
-   1. docker compose will use mySQL 8.0 from Docker hub
-   2. generic username, passwords, and environment variables are defined in docker-compose.yml
-   3. CTRL + C or typing docker-compose down will shut down the application and mySQL server images
+1. Clone this repo,
+2. ./mvnw clean package
 
