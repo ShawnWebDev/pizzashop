@@ -23,10 +23,6 @@ public class OrderServiceImpl implements OrderService {
 
     private final MenuItemService menuItemService;
 
-    // todo: move these lists to method scope and pass as params for other methods.
-    private List<String> availabilityErrors;
-    private List<String> priceErrors;
-
     @Autowired
     public OrderServiceImpl(MenuItemDAO menuItemDAO, CustomPizzaDAO customPizzaDAO, IngredientDAO ingredientDAO,
                             OrderDAO orderDAO, UserDAO userDAO, MenuItemService menuItemService) {
@@ -204,17 +200,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Map<String, List<String>> submitOrderForValidation(OrderDTO order) {
         Map<String, List<String>> errors = new HashMap<>();
-        availabilityErrors = new ArrayList<>();
-        priceErrors = new ArrayList<>();
+        List<String> availabilityErrors = new ArrayList<>();
+        List<String> priceErrors = new ArrayList<>();
 
         if (order.getMenuItemList() != null && !order.getMenuItemList().isEmpty()) {
-            validateMenuItems(order);
+            List<List<String>> validateMenuItems = validateMenuItems(order, availabilityErrors, priceErrors);
+            availabilityErrors.addAll(validateMenuItems.getFirst());
+            priceErrors.addAll(validateMenuItems.getLast());
         }
         if (order.getCustomPizzaList() != null && !order.getCustomPizzaList().isEmpty()) {
-            validatePizzaIngredients(order.getCustomPizzaList());
+            availabilityErrors.addAll(validatePizzaIngredients(order.getCustomPizzaList(), availabilityErrors));
         }
 
-        validateOrderPrice(order);
+        List<List<String>> validatePrice = validateOrderPrice(order, availabilityErrors, priceErrors);
+        availabilityErrors.addAll(validatePrice.getFirst());
+        priceErrors.addAll(validatePrice.getLast());
 
         errors.put("availabilityErrors", availabilityErrors);
         errors.put("priceErrors", priceErrors);
@@ -450,7 +450,7 @@ public class OrderServiceImpl implements OrderService {
         return countArr;
     }
 
-    private void validateMenuItems(OrderDTO order) {
+    private List<List<String>> validateMenuItems(OrderDTO order, List<String> availabilityErrors, List<String> priceErrors) {
         // copy orderMenuItemDTOs to ArrayList Impl for making modifications to it
         List<OrderMenuItemDTO> orderMenuItemDTOs = new ArrayList<>(order.getMenuItemList());
         // gets list of menuItemIds to use IN clause for single query and compare with database records
@@ -483,9 +483,10 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         order.setMenuItemList(orderMenuItemDTOs);
+        return new ArrayList<>(List.of(availabilityErrors, priceErrors));
     }
 
-    private void validatePizzaIngredients(List<CustomPizzaDTO> customPizzaDTOs) {
+    private List<String> validatePizzaIngredients(List<CustomPizzaDTO> customPizzaDTOs, List<String> availabilityErrors) {
         //counts ingredients used, adds to hashmap with id as key, count as value
         //used for checking amounts with db.
         Map<Integer, Integer> ingredientsCount = new HashMap<>();
@@ -510,10 +511,10 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
-        checkIngredientsWithDB(ingredientsCount);
+        return checkIngredientsWithDB(ingredientsCount, availabilityErrors);
     }
 
-    private void checkIngredientsWithDB(Map<Integer, Integer> ingredientsCount) {
+    private List<String> checkIngredientsWithDB(Map<Integer, Integer> ingredientsCount, List<String> availabilityErrors) {
         List<Integer> ingredientIds = new ArrayList<>(ingredientsCount.keySet());
         List<Ingredient> toppingIngredients = ingredientDAO.findAllIn(ingredientIds);
         //checks for smaller pizza available
@@ -542,9 +543,10 @@ public class OrderServiceImpl implements OrderService {
                 availabilityErrors.add(errorMessage);
             }
         }
+        return availabilityErrors;
     }
 
-    private void validateOrderPrice(OrderDTO order) {
+    private List<List<String>> validateOrderPrice(OrderDTO order, List<String> availabilityErrors, List<String> priceErrors) {
         int pizzasPrice = 0;
         int menuPrice = 0;
 
@@ -552,7 +554,10 @@ public class OrderServiceImpl implements OrderService {
             menuPrice = getMenuItemsPrice(order.getMenuItemList());
         }
         if (order.getCustomPizzaList() != null && !order.getCustomPizzaList().isEmpty()) {
-            pizzasPrice = validatePizzaDTOPrices(order.getCustomPizzaList());
+            List<Object> pizzaValidation = validatePizzaDTOPrices(order.getCustomPizzaList(), availabilityErrors, priceErrors);
+            pizzasPrice = (int) pizzaValidation.getFirst();
+            availabilityErrors.addAll((List<String>) pizzaValidation.get(1));
+            priceErrors.addAll((List<String>) pizzaValidation.get(2));
         }
 
         int orderPrice = menuPrice + pizzasPrice;
@@ -560,6 +565,7 @@ public class OrderServiceImpl implements OrderService {
             order.setTotalPrice(orderPrice);
             priceErrors.add("Cart price does not match our calculated price. Your cart is updated to reflect actual price.");
         }
+        return new ArrayList<>(List.of(availabilityErrors, priceErrors));
     }
 
     private int getMenuItemsPrice(List<OrderMenuItemDTO> orderMenuItemDTOs) {
@@ -572,7 +578,7 @@ public class OrderServiceImpl implements OrderService {
         return price;
     }
 
-    private int validatePizzaDTOPrices(List<CustomPizzaDTO> customPizzaDTOs) {
+    private List<Object> validatePizzaDTOPrices(List<CustomPizzaDTO> customPizzaDTOs, List<String> availabilityErrors, List<String> priceErrors) {
         int totalPrice = 0;
         for (CustomPizzaDTO customPizzaDTO : customPizzaDTOs) {
             List<ToppingDTO> toppings = customPizzaDTO.getToppings();
@@ -601,11 +607,11 @@ public class OrderServiceImpl implements OrderService {
             MenuItem basePizza = menuItemDAO.findByName(sizeTitleCase + " Cheese Pizza");
             if (basePizza == null) {
                 availabilityErrors.add("Sorry, " + size.name().toLowerCase() + " pizza is not available at this time.");
-                return 0;
+                return List.of(totalPrice, availabilityErrors, priceErrors);
             } else if (basePizza.getAmountAvailable() < customPizzaDTO.getQuantity()) {
                 availabilityErrors.add("Sorry, not enough stock for " + customPizzaDTO.getQuantity() + " pizza(s), cart is updated to reflect amount available.");
                 customPizzaDTO.setQuantity(basePizza.getAmountAvailable());
-                return 0;
+                return List.of(totalPrice, availabilityErrors, priceErrors);
             }
 
             int pizzaPrice = basePizza.getPriceCents();
@@ -629,7 +635,7 @@ public class OrderServiceImpl implements OrderService {
 
             totalPrice += customPizzaDTO.getTotalPizzaPrice();
         }
-        return totalPrice;
+        return new ArrayList<>(List.of(totalPrice, availabilityErrors, priceErrors));
     }
 
 }
