@@ -64,13 +64,14 @@ docker and docker compose are required for this installation method.
 
 
 ### Screenshots
+|                                                                                                                                    |                                                                                                                                  |
+|------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **Landing Page Mobile** <br/><img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730"> | **Menu Page Mobile** <br/><img src="./screenshots/Menu-Mobile.png" alt="Screenshot of Menu on Mobile" width="280" height="1000"> |
+| ![Image 3 Alt Text](image3.png)                                                                                                    | ![Image 4 Alt Text](image4.png)                                                                                                  |
+-**Landing page mobile**
+- 
 
-<figure>
-  <figcaption>Screenshot of landing page on mobile.</figcaption>
-  <img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730">
-  <figcaption>Screenshot of landing page on mobile.</figcaption>
-  <img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730">
-</figure>
+
 
 
 
