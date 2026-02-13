@@ -67,9 +67,8 @@ docker and docker compose are required for this installation method.
 | Mobile View                                                                                                                        | Desktop View                                                                                                                         |
 |------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | **Landing Page Mobile** <br/><img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730"> | **Landing Page Desktop** <br/><img src="./screenshots/Home-Desktop.png" alt="Screenshot of Home on Mobile" width="680" height="585"> |
-| **Menu Page Mobile** <br/><img src="./screenshots/Menu-Mobile.png" alt="Screenshot of Menu on Mobile" width="280" height="655">    | ![Image 4 Alt Text](image4.png)                                                                                                      |
--**Landing page mobile**
-- 
+| **Menu Page Mobile** <br/><img src="./screenshots/Menu-Mobile.png" alt="Screenshot of Menu on Mobile" width="280" height="655">    | **Menu Page Desktop** <br/><img src="./screenshots/Menu-Desktop.png" alt="Screenshot of Home on Mobile" width="640" height="560">    |
+| **Pizza Builder Mobile**                                                                                                           | **Pizza Builder Desktop**                                                                                                            |
 
 
 
