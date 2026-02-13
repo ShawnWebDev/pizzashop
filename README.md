@@ -14,7 +14,9 @@ docker and docker compose are required for this installation method.
 1. Clone this repo - (git clone https://github.com/ShawnWebDev/pizzashop.git)
 2. navigate to cloned directory 
 3. build and run app with docker - (docker compose up --build)
-4. after the log shows the AppRunner finish, the app will be available at 'localhost:8080' 
+4. after the log shows the AppRunner finish, the app will be available at 'localhost:8080'
+5. default admin username = pizzashop 
+6. default admin password = application_admin_password (or change in docker-compose.yml @ 'environment.INITIAL_ADMIN_PASS')
 
 
 ### Tech Stack:
@@ -44,14 +46,25 @@ docker and docker compose are required for this installation method.
       orders are submitted. They can then view recipes for the menu items in the order for fulfilment.
     - *Management* can use multiple reporting tools to view and manage the menu, inventory, users, and orders placed
       over specified periods.
+- **UX/UI**:
+  - Fully responsive design to fit any screen size.
+  - Clear navigation, color contrast, and a simple content flow.
+  - Icons to show functionality 
+
 
 ### Key Engineering Challenges
+
 - **Concurrency & Thread Safety**:
-  - One of the primary challenges was ensuring that the inventory validation and order processing were thread-safe. I refactored the service layer to remove shared state, ensuring that error lists and validation results are local to the request thread.
+  - Ensured that the inventory validation and order processing were thread-safe. I refactored the service layer to remove shared state, ensuring that error lists and validation results are local to the request thread.
 - **Order & Inventory Data Integrity**:
-  - I implemented a comprehensive Data JPA Integration Test. By managing the EntityManager manually (flushing/clearing), I verified that database relationships and stock reductions were functioning correctly in a production-like H2 environment.
+  - Created extensive validations that ensure each ingredient is available for each order item and that the user-submitted forms have valid items and prices.
+  - I implemented a Data JPA Integration Test to verify that database relationships and stock reductions were functioning correctly in a production-like H2 environment.
 - **Environment**:
   - Solved initial deployment friction by migrating to Docker Compose V2 and implementing health check patterns. This ensures the Spring Boot application waits for the MySQL container to be fully initialized before attempting a connection, preventing "cold-start" failures.
 
 
+### Screenshots
+
+**Desktop**
+![Landing Page - Desktop](/screenshots/Home-Desktop.png)
 
