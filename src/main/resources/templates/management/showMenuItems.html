@@ -8,7 +8,7 @@
   <main>
     <section th:insert="~{systemNav :: systemNav}"></section>
 
-    <section class="horizontal-center">
+    <section class="horizontal-center table-container">
       <a th:href="@{/system/changeMenu/addMenuItem}">Add Item</a>
 
       <p th:if="${assocMenuItemsErr}" class="error form-info">

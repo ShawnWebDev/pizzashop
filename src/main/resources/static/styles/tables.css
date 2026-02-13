@@ -4,6 +4,11 @@ table {
     scroll-margin-top: 1rem;
 }
 
+.table-container {
+    margin: auto;
+    width: fit-content;
+}
+
 details {
     margin-bottom: 0.5rem;
 }
@@ -94,7 +99,6 @@ th, td {
         border-bottom: 1px dashed var(--dark-transparent);
     }
     .horizontal-center {
-
         margin: inherit;
     }
 }
