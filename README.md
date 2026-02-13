@@ -65,6 +65,6 @@ docker and docker compose are required for this installation method.
 
 ### Screenshots
 
-**Desktop**
-![Landing Page - Desktop](/screenshots/Home-Desktop.png)
+
+![Landing Page - Desktop](./screenshots/Home-Desktop.png)
 
