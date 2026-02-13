@@ -64,11 +64,11 @@ docker and docker compose are required for this installation method.
 
 
 ### Screenshots
-| Mobile View                                                                                                                        | Desktop View                                                                                                                         |
-|------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| **Landing Page Mobile** <br/><img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730"> | **Landing Page Desktop** <br/><img src="./screenshots/Home-Desktop.png" alt="Screenshot of Home on Mobile" width="680" height="585"> |
-| **Menu Page Mobile** <br/><img src="./screenshots/Menu-Mobile.png" alt="Screenshot of Menu on Mobile" width="280" height="655">    | **Menu Page Desktop** <br/><img src="./screenshots/Menu-Desktop.png" alt="Screenshot of Home on Mobile" width="640" height="560">    |
-| **Pizza Builder Mobile**                                                                                                           | **Pizza Builder Desktop**                                                                                                            |
+| Mobile View                                                                                                                                         | Desktop View                                                                                                                                           |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Landing Page Mobile** <br/><img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730">                  | **Landing Page Desktop** <br/><img src="./screenshots/Home-Desktop.png" alt="Screenshot of Home on Desktop" width="680" height="585">                  |
+| **Menu Page Mobile** <br/><img src="./screenshots/Menu-Mobile.png" alt="Screenshot of Menu on Mobile" width="280" height="655">                     | **Menu Page Desktop** <br/><img src="./screenshots/Menu-Desktop.png" alt="Screenshot of Menu on Desktop" width="640" height="560">                     |
+| **Pizza Builder Mobile** <br/><img src="./screenshots/Pizzabuilder-Mobile.png" alt="Screenshot of Pizzabuilder on Mobile" width="280" height="550"> | **Pizza Builder Desktop** <br/><img src="./screenshots/Pizzabuilder-Desktop.png" alt="Screenshot of Pizzabuilder on Desktop" width="650" height="470"> |
 
 
 
