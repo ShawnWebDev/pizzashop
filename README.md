@@ -66,9 +66,13 @@ docker and docker compose are required for this installation method.
 ### Screenshots
 
 <figure>
-  <figcaption>Screenshot of Home on mobile devices.</figcaption>
-  <img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home Desktop screenshot" width="280" height="730">
+  <figcaption>Screenshot of landing page on mobile.</figcaption>
+  <img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730">
+  <figcaption>Screenshot of landing page on mobile.</figcaption>
+  <img src="./screenshots/Home-Mobile.png" alt="Screenshot of Home on Mobile" width="280" height="730">
 </figure>
+
+
 
 
 
